@@ -29,7 +29,7 @@ namespace Elastic.PackageCompiler.Beats
                 CanonicalTargetName = "lsbeat",
                 Architecture = MagicStrings.Arch.x86,
 
-        };
+            };
 
 
             var pc = config.GetProductConfig(ap.TargetName);

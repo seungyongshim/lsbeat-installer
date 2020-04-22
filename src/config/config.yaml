@@ -16,6 +16,14 @@ products:
     mutable_dirs: [ ]
     service: true
 
+  lsbeat:
+    description: lsbeat
+    published_name: Mirero System Beats Lsbeat
+    published_url: http://www.mirero.co.kr/
+    published_binaries: [ lsbeat.exe ]
+    mutable_dirs: [ ]
+    service: true
+
   filebeat-oss:
     description: Filebeat sends log files to Logstash or directly to Elasticsearch
     published_name: Elastic Beats Filebeat OSS
