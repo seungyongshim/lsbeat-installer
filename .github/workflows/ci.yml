@@ -37,8 +37,7 @@ jobs:
         ./build build --cid $env:LSBEAT_VERSION --bitness x86 lsbeat
     - name: copy MSI
       run: |
-        Copy-Item "./bin/out/metricbeat/*.msi"  -Destination "./release"
-        Copy-Item "./bin/out/filebeat/*.msi"  -Destination "./release"
+        Copy-Item "./bin/out/*"  -Destination "./release" -Filter *.msi -Recurse 
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
       with:
