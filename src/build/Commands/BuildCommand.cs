@@ -72,12 +72,12 @@ namespace ElastiBuild.Commands
                     FetchPackageTarget.NameWith(target),
                     Bullseye.Targets.DependsOn(FindPackageTarget.NameWith(target)),
                     async () => await FetchPackageTarget.RunAsync(ctx));
-                /*
+
                 bt.Add(
                     UnpackPackageTarget.NameWith(target),
                     Bullseye.Targets.DependsOn(FetchPackageTarget.NameWith(target)),
                     async () => await UnpackPackageTarget.RunAsync(ctx));
-                */
+
                 // sign individual binaries
                 if (addSignTarget)
                     ctx.SetCertificate(CertFile, CertPass);
