@@ -83,10 +83,9 @@ namespace ElastiBuild.Infra
         public static async Task<(bool wasAlreadyPresent, string localPath)> FetchArtifact(
             BuildContext ctx, ArtifactPackage ap, bool forceSwitch)
         {
-            Console.WriteLine(ctx.InDir);
-            Console.WriteLine(ap.Url);
+            var destDir = Path.Combine(ctx.InDir, Path.GetFileNameWithoutExtension(ap.FileName));
 
-            var localPath = Path.Combine(ctx.InDir, ap.FileName);
+            var localPath = Path.Combine(destDir, ap.FileName);
 
             if (!forceSwitch && File.Exists(localPath))
                 return (true, localPath);
@@ -97,9 +96,9 @@ namespace ElastiBuild.Infra
 
             
 
-            localPath = Path.Combine(ctx.InDir, Path.GetFileName(ap.Url));
+            localPath = Path.Combine(destDir, Path.GetFileName(ap.Url));
 
-            Directory.CreateDirectory(ctx.InDir);
+            Directory.CreateDirectory(destDir);
 
             using var http = new HttpClient();
             using var stm = await http.GetStreamAsync(ap.Url);
