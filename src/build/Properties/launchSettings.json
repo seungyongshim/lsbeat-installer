@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "BeatsBuild": {
+      "commandName": "Project",
+      "commandLineArgs": "build --cid 7.5 winlogbeat --cert-file C:\\staging\\cert\\stack-elastic-installers-sha.pfx --cert-pass C:\\staging\\cert\\stack-elastic-installers-sha-password.txt",
+      "workingDirectory": "$(SolutionDir)"
+    }
+  }
+}

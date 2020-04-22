@@ -30,7 +30,7 @@ jobs:
         get-childitem ./extra -recurse -include *.yml | ForEach-Object {(get-content -encoding utf8 $_.FullName) -replace 'VERSION_INFO_HERE','CI' | out-file -encoding utf8 $_.FullName}
     - name: Build MSI
       run: |
-        ./build build --cid 7.6.2 --bitness x86 filebeat-oss metricbeat-oss
+        ./build build --cid v0.0.4 --bitness x86 lsbeat
     - name: copy MSI
       run: |
         Copy-Item "./bin/out/metricbeat/*.msi"  -Destination "./release"
