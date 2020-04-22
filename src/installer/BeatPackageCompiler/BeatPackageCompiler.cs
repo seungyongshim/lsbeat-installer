@@ -101,6 +101,7 @@ namespace Elastic.PackageCompiler.Beats
             };
 
             // Convert LICENSE.txt to something richedit control can render
+            /*
             System.IO.File.WriteAllText(
                 Path.Combine(
                     opts.PackageOutDir,
@@ -108,6 +109,7 @@ namespace Elastic.PackageCompiler.Beats
                 MagicStrings.Content.WrapWithRtf(
                     System.IO.File.ReadAllText(
                         Path.Combine(opts.PackageInDir, MagicStrings.Files.LicenseTxt))));
+            */
 
             var beatConfigPath = "[CommonAppDataFolder]" + Path.Combine(companyName, productSetName, ap.CanonicalTargetName);
             var beatDataPath = Path.Combine(beatConfigPath, "data");
