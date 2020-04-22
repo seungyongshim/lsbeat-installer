@@ -23,7 +23,7 @@ namespace Elastic.Installer
 
         public bool IsSnapshot { get; private set; }
         public bool IsOss { get; private set; }
-        public string CanonicalTargetName { get; private set; }
+        public string CanonicalTargetName { get; set; }
 
         public bool Is32Bit => Architecture == MagicStrings.Arch.x86;
         public bool Is64Bit => Architecture == MagicStrings.Arch.x86_64;

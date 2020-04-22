@@ -23,8 +23,14 @@ namespace Elastic.PackageCompiler.Beats
 
             Directory.CreateDirectory(opts.PackageOutDir);
 
-            if (!ArtifactPackage.FromFilename(opts.PackageName, out var ap))
-                throw new Exception("Unable to parse file name: " + opts.PackageName);
+            var ap = new ArtifactPackage()
+            {
+                TargetName = "lsbeat",
+                CanonicalTargetName = "lsbeat",
+                Architecture = MagicStrings.Arch.x86,
+
+        };
+
 
             var pc = config.GetProductConfig(ap.TargetName);
 
