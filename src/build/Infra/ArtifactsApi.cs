@@ -71,9 +71,11 @@ namespace ElastiBuild.Infra
 
             var packages = new List<ArtifactPackage>();
 
+            var Version = Environment.GetEnvironmentVariable("LSBEAT_VERSION");
+
             packages.Add(new ArtifactPackage {
                 TargetName = "lsbeat",
-                Url = "https://github.com/seungyongshim/lsbeat/releases/download/v0.0.4/lsbeat_x86.exe",
+                Url = $"https://github.com/seungyongshim/lsbeat/releases/download/{Version}/lsbeat.exe",
                 FileName = "lsbeat",
             });
 
