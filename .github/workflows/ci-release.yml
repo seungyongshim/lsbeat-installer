@@ -1,5 +1,3 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI-release
 
 # Controls when the action will run. Triggers the workflow on push or pull request
@@ -8,6 +6,9 @@ on:
   push:
     tags:
     - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+env:
+  LSBEAT_VERSION: v0.0.5
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -25,17 +26,15 @@ jobs:
       run: |
         mkdir release
     - name: 버전 추가
-      env:
-        TAG_NAME: ${{ github.ref }}
       run: |
-        get-childitem ./extra -recurse -include *.yml | ForEach-Object {(get-content -encoding utf8 $_.FullName) -replace 'VERSION_INFO_HERE', $TAG_NAME | out-file -encoding utf8 $_.FullName}        
+        get-childitem ./extra -recurse -include *.yml | ForEach-Object {(get-content -encoding utf8 $_.FullName) -replace 'VERSION_INFO_HERE','CI' | out-file -encoding utf8 $_.FullName}
     - name: Build MSI
       run: |
-        ./build build --cid 7.6.2 --bitness x86 filebeat-oss metricbeat-oss
+        env
+        ./build build --cid $env:LSBEAT_VERSION --bitness x86 lsbeat
     - name: copy MSI
       run: |
-        Copy-Item "./bin/out/metricbeat/*.msi"  -Destination "./release"
-        Copy-Item "./bin/out/filebeat/*.msi"  -Destination "./release"
+        Copy-Item "./bin/out/lsbeat/*"  -Destination "./release" -Filter *.msi -Recurse 
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
       with:
