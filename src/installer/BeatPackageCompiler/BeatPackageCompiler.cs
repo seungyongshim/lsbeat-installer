@@ -28,7 +28,7 @@ namespace Elastic.PackageCompiler.Beats
                 TargetName = "lsbeat",
                 CanonicalTargetName = "lsbeat",
                 Architecture = MagicStrings.Arch.x86,
-                Version = Environment.GetEnvironmentVariable("LSBEAT_VERSION"),
+                Version = Environment.GetEnvironmentVariable("LSBEAT_VERSION").Trim('v'),
             };
 
             Console.WriteLine(ap.ToString());
