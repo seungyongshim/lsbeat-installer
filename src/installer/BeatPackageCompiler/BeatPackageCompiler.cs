@@ -58,9 +58,11 @@ namespace Elastic.PackageCompiler.Beats
                 Version = new Version(ap.Version),
 
                 // We massage LICENSE.txt into .rtf below
+                /*
                 LicenceFile = Path.Combine(
                     opts.PackageOutDir,
                     MagicStrings.Files.PackageLicenseRtf(opts.PackageName)),
+                */
 
                 Platform = ap.Is32Bit ? Platform.x86 : Platform.x64,
 
