@@ -24,7 +24,7 @@ namespace Elastic.PackageCompiler
         public bool KeepTempFiles { get; set; }
 
         public string ShortPackageName =>
-            PackageName?.Substring(0, PackageName.IndexOf('-')) ?? string.Empty;
+            PackageName;
 
         public string PackageInDir => Path.Combine(InDir, PackageName);
         public string PackageOutDir => Path.Combine(OutDir, ShortPackageName);
