@@ -76,7 +76,7 @@ namespace Elastic.Installer
 
         public static class ArtifactsApi
         {
-            public static readonly string BaseAddress = "https://artifacts-api.elastic.co/v1/";
+            public static readonly string BaseAddress = "https://github.com/seungyongshim";
             public static readonly string Architecture = "architecture";
             public static readonly string Branches = "branches";
             public static readonly string Versions = "versions";

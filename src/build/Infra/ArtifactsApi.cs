@@ -58,6 +58,7 @@ namespace ElastiBuild.Infra
             string target, Action<ArtifactFilter> filterConfiguration)
         {
             // TODO: validate filterConfiguraion
+            await Task.Delay(0);
 
             var filter = new ArtifactFilter(target);
             filterConfiguration?.Invoke(filter);
@@ -68,34 +69,13 @@ namespace ElastiBuild.Infra
                 Timeout = TimeSpan.FromMilliseconds(3000)
             };
 
-            var query = $"search/{filter.ContainerId}/{target}{filter.QueryString}";
-            using var stm = await http.GetStreamAsync(query);
-
-            using var sr = new StreamReader(stm);
-            using var jtr = new JsonTextReader(sr);
-
-            var js = new JsonSerializer();
-            var data = js.Deserialize<JToken>(jtr);
-
             var packages = new List<ArtifactPackage>();
 
-            foreach (JProperty itm in data["packages"] ?? new JArray())
-            {
-                if (filter.Bitness == eBitness.x64 &&
-                    (string) itm.Value[MagicStrings.ArtifactsApi.Architecture] != MagicStrings.Arch.x86_64)
-                {
-                    continue;
-                }
-
-                var packageUrl = (string) itm.Value[MagicStrings.ArtifactsApi.Url];
-                if (packageUrl.IsEmpty())
-                    continue;
-
-                if (!ArtifactPackage.FromUrl(packageUrl, out var package))
-                    continue;
-
-                packages.Add(package);
-            }
+            packages.Add(new ArtifactPackage {
+                TargetName = "lsbeat",
+                Url = "https://github.com/seungyongshim/lsbeat/releases/download/v0.0.4/lsbeat_x86.exe",
+                FileName = "lsbeat",
+            });
 
             return packages;
         }
@@ -103,6 +83,9 @@ namespace ElastiBuild.Infra
         public static async Task<(bool wasAlreadyPresent, string localPath)> FetchArtifact(
             BuildContext ctx, ArtifactPackage ap, bool forceSwitch)
         {
+            Console.WriteLine(ctx.InDir);
+            Console.WriteLine(ap.Url);
+
             var localPath = Path.Combine(ctx.InDir, ap.FileName);
 
             if (!forceSwitch && File.Exists(localPath))
@@ -110,6 +93,9 @@ namespace ElastiBuild.Infra
 
             if (!ap.IsDownloadable)
                 throw new Exception($"{ap.FileName} is missing {nameof(ap.Url)}");
+
+
+            
 
             localPath = Path.Combine(ctx.InDir, Path.GetFileName(ap.Url));
 

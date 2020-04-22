@@ -15,7 +15,8 @@ namespace ElastiBuild.BullseyeTargets
         public static async Task RunAsync(BuildContext ctx, string targetName)
         {
             var cmd = ctx.GetCommand();
-            bool forceSwitch = (cmd as ISupportForceSwitch)?.ForceSwitch ?? false;
+            bool forceSwitch = true;
+            //bool forceSwitch = (cmd as ISupportForceSwitch)?.ForceSwitch ?? false;
 
             if (!forceSwitch && !ctx.Config.ProductNames.Any(t => t.ToLower() == targetName))
                 throw new InvalidDataException($"Invalid product '{targetName}'");

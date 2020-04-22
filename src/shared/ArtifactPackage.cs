@@ -8,13 +8,13 @@ namespace Elastic.Installer
 {
     public class ArtifactPackage
     {
-        public string TargetName { get; }
-        public string Version { get; }
-        public string Qualifier { get; }
+        public string TargetName {  get; set; }
+        public string Version { get; set; }
+        public string Qualifier { get; set; }
         public string Snapshot => IsSnapshot ? MagicStrings.Ver.Snapshot : string.Empty;
-        public string Architecture { get; }
-        public string FileName { get; }
-        public string Url { get; }
+        public string Architecture { get; set; }
+        public string FileName { get; set; }
+        public string Url { get; set; }
 
         public string SemVer => string.Join("-", new[]
         {
@@ -57,6 +57,8 @@ namespace Elastic.Installer
             artifactPackage = new ArtifactPackage(rxVersion.Groups, fileName, url);
             return true;
         }
+
+        public ArtifactPackage() {}
 
         ArtifactPackage(GroupCollection rxGroups, string fileName, string url)
         {
