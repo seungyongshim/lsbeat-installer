@@ -60,6 +60,11 @@ namespace Elastic.Installer
 
         public ArtifactPackage() {}
 
+        public override string ToString()
+        {
+            return $"Version: {Version}";
+        }
+
         ArtifactPackage(GroupCollection rxGroups, string fileName, string url)
         {
             FileName = fileName;

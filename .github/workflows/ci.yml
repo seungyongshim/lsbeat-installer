@@ -10,6 +10,9 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  LSBEAT_VERSION: v0.0.4
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -30,7 +33,8 @@ jobs:
         get-childitem ./extra -recurse -include *.yml | ForEach-Object {(get-content -encoding utf8 $_.FullName) -replace 'VERSION_INFO_HERE','CI' | out-file -encoding utf8 $_.FullName}
     - name: Build MSI
       run: |
-        ./build build --cid v0.0.4 --bitness x86 lsbeat
+        env
+        ./build build --cid $env:LSBEAT_VERSION --bitness x86 lsbeat
     - name: copy MSI
       run: |
         Copy-Item "./bin/out/metricbeat/*.msi"  -Destination "./release"
