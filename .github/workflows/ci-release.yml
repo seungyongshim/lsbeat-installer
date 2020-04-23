@@ -27,7 +27,7 @@ jobs:
         mkdir release
     - name: 버전 추가
       run: |
-        get-childitem ./extra -recurse -include *.yml | ForEach-Object {(get-content -encoding utf8 $_.FullName) -replace 'VERSION_INFO_HERE','CI' | out-file -encoding utf8 $_.FullName}
+        get-childitem ./extra -recurse -include *.yml | ForEach-Object {(get-content -encoding utf8 $_.FullName) -replace 'VERSION_INFO_HERE', $TAG_NAME | out-file -encoding utf8 $_.FullName}
     - name: Build MSI
       run: |
         env
