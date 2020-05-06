@@ -6,7 +6,6 @@ on:
 
 env:
   LSBEAT_VERSION: v0.0.5
-  TAG_NAME: ${{ github.ref }}
   GITHUB_TOKEN: ${{ github.token }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -35,6 +34,8 @@ jobs:
       run: |
         env
         ./build build --cid $env:LSBEAT_VERSION --bitness x86 lsbeat
+      env:
+        GITHUB_VERSION: ${{ steps.get_version.outputs.version }}
     - name: copy MSI
       run: |
         Copy-Item "./bin/out/lsbeat/*"  -Destination "./release" -Filter *.msi -Recurse 
