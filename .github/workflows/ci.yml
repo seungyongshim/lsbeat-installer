@@ -11,6 +11,7 @@ on:
     branches: [ master ]
 
 env:
+  GITHUB_VERSION: 0.0.0
   LSBEAT_VERSION: v0.0.5
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -30,7 +31,7 @@ jobs:
         mkdir release
     - name: 버전 추가
       run: |
-        get-childitem ./extra -recurse -include *.yml | ForEach-Object {(get-content -encoding utf8 $_.FullName) -replace 'VERSION_INFO_HERE','CI' | out-file -encoding utf8 $_.FullName}
+        get-childitem ./extra -recurse -include *.yml | ForEach-Object {(get-content -encoding utf8 $_.FullName) -replace 'VERSION_INFO_HERE', $env:GITHUB_VERSION | out-file -encoding utf8 $_.FullName}
     - name: Build MSI
       run: |
         env
