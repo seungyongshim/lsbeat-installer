@@ -4,12 +4,12 @@ xpack.monitoring.enabled: false
 
 lsbeat:
   period: 1m 
-  paths: ["${BLUECATS_WATCH_FOLDERS}"]
-  smb_drives: ["${BLUECATS_WATCH_SMB_DRIVES}"]
+  paths: ${BLUECATS_WATCH_FOLDERS}
+  smb_drives: ${BLUECATS_WATCH_SMB_DRIVES}
 
 output.logstash:
   enabled: true
-  hosts: ["${BLUECATS_HOST:?환경변수 값으로 BLUECATS_HOST값을 127.0.0.1:7700 과 같은 형태로 추가하세요.}"]
+  hosts: ${BLUECATS_HOST:?환경변수 값으로 BLUECATS_HOST값을 127.0.0.1:7700 과 같은 형태로 추가하세요.}
 
 processors:
   - add_locale: ~
