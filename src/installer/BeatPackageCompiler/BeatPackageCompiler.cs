@@ -28,7 +28,7 @@ namespace Elastic.PackageCompiler.Beats
                 TargetName = "lsbeat",
                 CanonicalTargetName = "lsbeat",
                 Architecture = MagicStrings.Arch.x86,
-                Version = Environment.GetEnvironmentVariable("LSBEAT_VERSION").Trim('v'),
+                Version = Environment.GetEnvironmentVariable("GITHUB_VERSION").Trim('v'),
             };
 
             Console.WriteLine(ap.ToString());
@@ -56,13 +56,6 @@ namespace Elastic.PackageCompiler.Beats
 
                 OutFileName = Path.Combine(opts.PackageOutDir, opts.ShortPackageName),
                 Version = new Version(ap.Version),
-
-                // We massage LICENSE.txt into .rtf below
-                /*
-                LicenceFile = Path.Combine(
-                    opts.PackageOutDir,
-                    MagicStrings.Files.PackageLicenseRtf(opts.PackageName)),
-                */
 
                 Platform = ap.Is32Bit ? Platform.x86 : Platform.x64,
 
@@ -100,16 +93,6 @@ namespace Elastic.PackageCompiler.Beats
                 NoRepair = true,
             };
 
-            // Convert LICENSE.txt to something richedit control can render
-            /*
-            System.IO.File.WriteAllText(
-                Path.Combine(
-                    opts.PackageOutDir,
-                    MagicStrings.Files.PackageLicenseRtf(opts.PackageName)),
-                MagicStrings.Content.WrapWithRtf(
-                    System.IO.File.ReadAllText(
-                        Path.Combine(opts.PackageInDir, MagicStrings.Files.LicenseTxt))));
-            */
 
             var beatConfigPath = "[CommonAppDataFolder]" + Path.Combine(companyName, productSetName, ap.CanonicalTargetName);
             var beatDataPath = Path.Combine(beatConfigPath, "data");
