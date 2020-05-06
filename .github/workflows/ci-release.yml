@@ -1,14 +1,12 @@
-name: CI-release
+name: Release
 
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
 on:
-  push:
-    tags:
-    - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+  release:
+    types: [created]
 
 env:
   LSBEAT_VERSION: v0.0.5
+  GITHUB_TOKEN: ${{ github.token }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -21,6 +19,9 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
+    - name: Get Release
+      id: get_release
+      uses: bruceadams/get-release@v1.2.0   
     # Runs a single command using the runners shell
     - name: release 폴더 생성
       run: |
@@ -35,41 +36,12 @@ jobs:
     - name: copy MSI
       run: |
         Copy-Item "./bin/out/lsbeat/*"  -Destination "./release" -Filter *.msi -Recurse 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v1.0.0
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1.0.2
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        # Artifact name
-        name: beats
-        # Directory containing files to upload
-        path: ./release
-  release:
-    runs-on: windows-latest
-    needs: [build]
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v1.0.0
-        with:
-          # Artifact name
-          name: beats
-          # Destination path
-          path: ./release
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: true
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1.0.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: ./release/lsbeat.msi
-          asset_name: lsbeat.msi
-          asset_content_type: application/octet-stream
-      
+        upload_url: ${{ steps.get_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: ./release/lsbeat.msi
+        asset_name: lsbeat.msi
+        asset_content_type: application/octet-stream
