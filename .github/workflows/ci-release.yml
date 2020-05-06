@@ -29,7 +29,7 @@ jobs:
         mkdir release
     - name: 버전 추가
       run: |
-        get-childitem ./extra -recurse -include *.yml | ForEach-Object {(get-content -encoding utf8 $_.FullName) -replace 'VERSION_INFO_HERE', $GITHUB_VERSION | out-file -encoding utf8 $_.FullName}  
+        get-childitem ./extra -recurse -include *.yml | ForEach-Object {(get-content -encoding utf8 $_.FullName) -replace 'VERSION_INFO_HERE', $env:GITHUB_VERSION | out-file -encoding utf8 $_.FullName}  
       env:
         GITHUB_VERSION: ${{ steps.get_version.outputs.version }}
     
