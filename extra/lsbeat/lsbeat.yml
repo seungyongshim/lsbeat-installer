@@ -3,11 +3,9 @@ setup.ilm.enabled: false
 xpack.monitoring.enabled: false
 
 lsbeat:
-  period: 1m
-  paths:
-  - C:\DemoInput
-  smb_drives:
-  - z:\
+  period: 1m 
+  paths: ["${BLUECATS_WATCH_FOLDERS}"]
+  smb_drives: ["${BLUECATS_WATCH_SMB_DRIVES}"]
 
 output.logstash:
   enabled: true
@@ -25,4 +23,7 @@ processors:
         equals:
           fields.DMS50: true
       tags: [DMS50]
+      target: "tags"
+  - add_tags:      
+      tags: ["${BLUECATS_SITE:?환경변수 값으로 BLUECATS_SITE값을 S1 혹은 16L 혹은 S3와 같은 형태로 추가하세요.}"]
       target: "tags"
