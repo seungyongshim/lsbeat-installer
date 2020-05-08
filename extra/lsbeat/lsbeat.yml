@@ -4,8 +4,8 @@ xpack.monitoring.enabled: false
 
 lsbeat:
   period: 1m 
-  paths: ${BLUECATS_WATCH_FOLDERS}
-  smb_drives: ${BLUECATS_WATCH_SMB_DRIVES}
+  paths: ${BLUECATS_WATCH_FOLDERS:nothing}
+  smb_drives: ${BLUECATS_WATCH_SMB_DRIVES:nothing}
 
 output.logstash:
   enabled: true
