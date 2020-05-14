@@ -17,7 +17,7 @@ processors:
 - add_fields:
     target: mirero
     fields:
-      kafka_topic: metricbeat
+      kafka_topic: lsbeat
       dms50: ${BLUECATS_DMS50:false}
       mss10: ${BLUECATS_MSS10:false}
 - add_tags:
