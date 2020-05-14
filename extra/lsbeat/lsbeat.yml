@@ -5,25 +5,28 @@ xpack.monitoring.enabled: false
 lsbeat:
   period: 1m 
   paths: ${BLUECATS_WATCH_FOLDERS:nothing}
-  smb_drives: ${BLUECATS_WATCH_SMB_DRIVES:nothing}
 
 output.logstash:
   enabled: true
   hosts: ${BLUECATS_HOST:?환경변수 값으로 BLUECATS_HOST값을 127.0.0.1:7700 과 같은 형태로 추가하세요.}
 
 processors:
-  - add_locale: ~
-  - add_fields:
-      fields:
-        DMS50: ${BLUECATS_DMS50:false}
-        VERSION: VERSION_INFO_HERE
-
-  - add_tags:
-      when: 
-        equals:
-          fields.DMS50: true
-      tags: [DMS50]
-      target: "tags"
-  - add_tags:      
-      tags: ["${BLUECATS_SITE:?환경변수 값으로 BLUECATS_SITE값을 S1 혹은 16L 혹은 S3와 같은 형태로 추가하세요.}"]
-      target: "tags"
+- add_locale: ~
+- add_tags:
+    tags: ${BLUECATS_SITE}
+- add_fields:
+    target: mirero
+    fields:
+      kafka_topic: metricbeat
+      dms50: ${BLUECATS_DMS50:false}
+      mss10: ${BLUECATS_MSS10:false}
+- add_tags:
+    tags: [dms, dms50]
+    when: 
+      equals:
+        mirero.dms50: true         
+- add_tags:
+    tags: [midews, mss, mss10]
+    when: 
+      equals:
+        mirero.mss10: true
