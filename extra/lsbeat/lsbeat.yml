@@ -15,11 +15,16 @@ processors:
 - add_tags:
     tags: ${BLUECATS_SITE}
 - add_fields:
+    target: beat
+    fields:
+      versoin: VERSION_INFO_HERE    
+- add_fields:
     target: mirero
     fields:
       kafka_topic: lsbeat
       dms50: ${BLUECATS_DMS50:false}
       mss10: ${BLUECATS_MSS10:false}
+      
 - add_tags:
     tags: [dms, dms50]
     when: 
