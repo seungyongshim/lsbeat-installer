@@ -17,7 +17,7 @@ processors:
 - add_fields:
     target: beat
     fields:
-      versoin: VERSION_INFO_HERE    
+      version: VERSION_INFO_HERE    
 - add_fields:
     target: mirero
     fields:
