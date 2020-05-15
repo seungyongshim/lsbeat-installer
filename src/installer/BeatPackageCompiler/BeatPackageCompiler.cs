@@ -35,9 +35,9 @@ namespace Elastic.PackageCompiler.Beats
 
             var pc = config.GetProductConfig(ap.TargetName);
 
-            var companyName = MagicStrings.Elastic;
+            var companyName = "Mirero";
             var productSetName = MagicStrings.Beats.Name;
-            var displayName = MagicStrings.Beats.Name + " " + ap.TargetName;
+            var displayName = companyName + " " + MagicStrings.Beats.Name + " " + ap.TargetName;
             var exeName = ap.CanonicalTargetName + MagicStrings.Ext.DotExe;
 
             // Generate UUID v5 from product properties.
@@ -82,7 +82,7 @@ namespace Elastic.PackageCompiler.Beats
             {
                 Contact = companyName,
                 Manufacturer = companyName,
-                UrlInfoAbout = "https://www.elastic.co",
+                UrlInfoAbout = "https://www.mirero.co.kr",
 
                 Comments = pc.Description + ". " + MagicStrings.Beats.Description,
 

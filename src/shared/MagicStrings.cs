@@ -8,7 +8,7 @@ namespace Elastic.Installer
 
         public static class Beats
         {
-            public static readonly string Name = "Beats";
+            public static readonly string Name = "BLUE CATS";
 
             public static readonly string Description =
                 "Beats is the platform for single-purpose data shippers. They send data " +
