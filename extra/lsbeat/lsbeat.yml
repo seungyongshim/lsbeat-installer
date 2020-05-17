@@ -3,8 +3,9 @@ setup.ilm.enabled: false
 xpack.monitoring.enabled: false
 
 lsbeat:
-  period: 1m 
+  period: 30s 
   paths: ${BLUECATS_WATCH_FOLDERS:nothing}
+  depth: ${BLUECATS_WATCH_FOLDER_DEPTH:10}
 
 output.logstash:
   enabled: true
