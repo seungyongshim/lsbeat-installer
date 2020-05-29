@@ -13,7 +13,8 @@ output.logstash:
 
 processors:
 - add_locale: ~
-- add_host_metadata: ~
+- add_host_metadata:
+    netinfo.enabled: true  
 - add_tags:
     tags: ${BLUECATS_SITE}
 - add_fields:
